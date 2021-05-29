@@ -1,0 +1,1045 @@
+#!/usr/bin/env python2.7 
+# __________                 ___ ___               __
+# \______   \__ __  ____    /   |   \ __ __  _____/  |_  by Mr.vikram
+#  |    |  _/  |  \/ ___\  /    ~    \  |  \/    \   __\/ __ \_  __ \
+#  |    |   \  |  / /_/  > \    Y    /  |  /   |  \  | \  ___/|  | \/
+#  |______  /____/\___  /   \___|_  /|____/|___|  /__|  \___  >__|
+#         \/     /_____/          \/            \/          \/
+#
+
+import os
+import time
+import httplib
+import subprocess
+import re
+import urllib2
+import socket
+import urllib
+import sys
+import json
+import telnetlib
+import glob
+import random
+import Queue
+import threading
+#import requests
+import base64
+from getpass import getpass
+from commands import *
+from sys import argv
+from platform import system
+from urlparse import urlparse
+from xml.dom import minidom
+from optparse import OptionParser
+from time import sleep
+
+os.system('clear')
+os.system('clear')
+os.system('mkdir ~/bughunter')
+os.system('mkdir ~/bughunter/info')
+os.system('mkdir ~/bughunter/mapp')
+os.system('mkdir ~/bughunter/disc')
+os.system('mkdir ~/bughunter/expt')
+os.system('mkdir ~/bughunter/repo')
+os.system('mkdir ~/bughunter/sage')
+os.system("rm ~/bughunter/update.sh")
+os.system('clear')
+os.system('clear')
+
+yes = set(['yes', 'y', 'Yes', 'Y'])
+no = set(['no', 'n', 'No', 'N'])
+
+###############################################################################
+
+def logo():
+    print """
+- Powered by Vikram
+"""
+bughunterlogo = """\033[0m
+  __________                 ___ ___               __                 
+  \______   \__ __  ____    /   |   \ __ __  _____/  |_  by Mr. SAGE  
+   |    |  _/  |  \/ ___\  /    ~    \  |  \/    \   __\/ __ \_  __ \ 
+   |    |   \  |  / /_/  > \    Y    /  |  /   |  \  | \  ___/|  | \/ 
+   |______  /____/\___  /   \___|_  /|____/|___|  /__|  \___  >__|    
+          \/     /_____/          \/            \/          \/        
+\033[91m"""
+
+# MENU ########################################################################
+
+def menu():
+    clearScr()
+    print (bughunterlogo + """\033[1m
+  [!] Top Tools for Bug Hunting [!] | https://GitHub.com/vickybhai/
+ -----------------------------------------------------------------------
+\033[0m
+   [1] - Information Gathering     [update] - Update The BugHunter 
+   [2] - Mapping                    [about] - About The BugHunter  
+   [3] - Discovery                 [whoami] - Your IP and Location 
+   [4] - Exploitation                [vikram] - Tools by Mr. Vikram    
+   [5] - P0Cs & Reporting            [exit] - Exit The BugHunter   
+ """)
+    choice = raw_input("   bughunter~# ")
+    os.system('clear')
+    if choice == "update":
+        updatebughunter()
+    elif choice == "1":
+        info()
+    elif choice == "2":
+        mapping()
+    elif choice == "3":
+        discovery()
+    elif choice == "4":
+        exploit()
+    elif choice == "5":
+        reporting()
+    elif choice == "about":
+        about()
+    elif choice == "whoami":
+        myinfo()
+    elif choice == "sage":
+        sage()
+   elif choice == "exit":
+        clearScr(), sys.exit()
+    elif choice == "":
+        clearScr(), menu()
+    else:
+        clearScr(), menu()
+
+# Information Gathering #######################################################
+
+def info():
+    clearScr()
+    print(bughunterlogo)
+    print("""
+    Information Gathering | https://thehackingsage.github.io
+    ----------------------------------------------------------------
+    
+     [1] - Basic Commands    [11] - InfoG
+     [2] - Masscan           [12] - The Harvester
+     [3] - DNS Recon         [13] - Recon-NG
+     [4] - Sublist3r         [14] - SetoolKit
+     [5] - Alt-DNS           [15] - WhatWeb
+     [6] - Amass             [16] - Maltego
+     [7] - Subfinder         [17] - Goohak
+     [8] - Enumall           [18] - GoogD0rker
+     [9] - Aquatone          
+    [10] - Cloudflare_Enum    [0] - Useful Links   
+    """)
+    print("   [99] - Return to Main Menu \n")
+    choice1 = raw_input("   bughunter~# ")
+    if choice1 == "1":
+        clearScr()
+        basiccmd()
+    if choice1 == "2":
+        clearScr()
+        masscan()
+    if choice1 == "3":
+        clearScr()        
+        dnsrecon()
+    if choice1 == "4":
+        clearScr()
+        sublister()
+    if choice1 == "5":
+        clearScr()
+        altdns()
+    if choice1 == "6":
+        clearScr()
+        amass()
+    if choice1 == "7":
+        clearScr()
+        subfinder()
+    if choice1 == "8":
+        clearScr()
+        enumall()
+    if choice1 == "9":
+        clearScr()
+        aquatone()
+    if choice1 == "10":
+        clearScr()
+        cloudenum()
+    if choice1 == "11":
+        clearScr()
+        infog()
+    if choice1 == "12":
+        clearScr()
+        harvester()
+    if choice1 == "13":
+        clearScr()
+        reconng()
+    if choice1 == "14":
+        clearScr()
+        setoolkit()
+    if choice1 == "15":
+        clearScr()
+        whatweb()
+    if choice1 == "16":
+        clearScr()
+        maltego()
+    if choice1 == "17":
+        clearScr()
+        goohak()
+    if choice1 == "18":
+        clearScr()
+        googdorker()
+    if choice1 == "0":
+        clearScr()
+        usefullinks()                
+    elif choice1 == "99":
+        clearScr()
+        menu()
+    elif choice1 == "":
+        clearScr()
+        info()
+    else:
+        clearScr()
+        info()
+
+# Mapping #####################################################################
+
+def mapping():
+    clearScr()
+  print(bughunterlogo)
+    print("""
+    Mapping | https://thehackingsage.github.io
+    ----------------------------------------------------------------
+    
+    [1] - Nmap
+    [2] - Firefox
+    [3] - Firefox Extensions
+    [4] - Burp Suite Pro
+    [5] - Burp Suite Extensions
+    [6] - Intruder Payloads
+    [7] - Payloads All The Thing
+    [8] - Git-all-Secrets
+    """)
+    print("   [99] - Return to Main Menu \n")
+    choice2 = raw_input("   bughunter~# ")
+    if choice2 == "1":
+        clearScr()
+        nmap()
+    elif choice2 == "2":
+        clearScr()
+        firefox()
+    elif choice2 == "3":
+        clearScr()
+        firefoxext()
+    elif choice2 == "4":
+        clearScr()
+        burpsuitepro()        
+    elif choice2 == "5":
+        clearScr()
+        burpext()
+    elif choice2 == "6":
+        clearScr()
+        intruderpayload()
+    elif choice2 == "7":
+        clearScr()
+        allpayload()
+    elif choice2 == "8":
+        clearScr()
+        gitallsec()    
+    elif choice2 == "99":
+        clearScr()
+        menu()    
+    elif choice2 == "":
+        clearScr()
+        mapping()    
+    else:
+        clearScr()
+        mapping()
+
+# Discovery ###################################################################
+
+def discovery():
+    clearScr()
+    print(bughunterlogo)
+    print("""
+    Discovery | https://GitHub.com/vickybhai/
+    ----------------------------------------------------------------
+    
+     [1] - Acunetix-WVS           [11] - W3af
+     [2] - Arachni                [12] - Zed Attack Proxy
+     [3] - Burp Suite             [13] - WP-Scan
+     [4] - Nexpose                [14] - FuzzDB
+     [5] - Nikto                  [15] - CeWL
+     [6] - Vega                   [16] - DirBuster
+     [7] - Wapiti                 [17] - Dirb
+     [8] - Web Security Scanner   [18] - Filebuster
+     [9] - Websecurify Suite      [19] - Gobuster
+    [10] - Joomscan               [20] - DirSearch
+    """)
+    print("   [99] - Return to Main Menu \n")
+    choice3 = raw_input("   bughunter~# ")
+    os.system('clear')
+    if choice3 == "1":
+        acunetix()
+    if choice3 == "2":
+        arachni()
+    if choice3 == "3":
+        burpsuite()        
+    if choice3 == "4":
+        nexpose()
+    if choice3 == "5":
+        nikto()
+    if choice3 == "6":
+        vega()
+    if choice3 == "7":
+        wapiti()
+    if choice3 == "8":
+        websecscan()
+    if choice3 == "9":
+        websecsuite()
+    if choice3 == "10":
+        joomscan()
+    if choice3 == "11":
+        waaaf()
+    if choice3 == "12":
+        zed()
+    if choice3 == "13":
+        wpscan()        
+    if choice3 == "14":
+            fuzzdb()
+    if choice3 == "15":
+        cewl()
+    if choice3 == "16":
+        dirbuster()
+    if choice3 == "17":
+        dirb()
+    if choice3 == "18":
+        filebuster()
+    if choice3 == "19":
+        gobuster()
+    if choice3 == "20":
+        dirsearch()    
+    elif choice3 == "99":
+        menu()
+    elif choice3 == "":
+        clearScr()
+        discovery()    
+    else:
+        clearScr()
+        discovery()    
+
+# Exploitation ###############################################################
+
+def exploit():
+    clearScr()
+    print(bughunterlogo)
+    print("""
+    Exploitation | https://thehackingsage.github.io
+    -------------------------------------------------------------------------------------------
+    
+    XSS :                   SSTI :                  [22] - Race The Web     [38] - ChangeMe
+    [1] - XSS Radar         [12] - Tplmap           [23] - CORStest         [39] - wappalyzer
+    [2] - XSSHunter                                 [24] - RCE Struts-pwn   [40] - builtwith
+    [3] - xssHunterClient   SSRF :                  [25] - ysoSerial        [41] - wafw00f
+    [4] - DOMxssScanner     [13] - SSRF-Detector    [26] - PHPGGC           [42] - assetnote
+    [5] - XSSer             [14] - Ground Control   [27] - Retire-js        [43] - jsbeautifier
+    [6] - BruteXSS                                  [28] - Getsploit        [44] - LinkFinder
+    [7] - XSStrike          LFI :                   [29] - Findsploit      
+    [8] - XSS'OR            [15] - LFISuit          [30] - BFAC             Mobile : 
+                                                    [31] - WP-Scan          [45] - MobSF
+    SQLi :                  [16] - Gen-xbin-Avi     [32] - CMSmap           [46] - GenyMotion
+    [9] - SQLmap            [17] - GitTools         [33] - Joomscan         [47] - Apktool
+                            [18] - DVCS Ripper      [34] - JSON W T T       [48] - dex2jar
+    XXE :                   [19] - TKO Subs         [35] - Wfuzz            [49] - jd-gui
+    [10] - OXML-xxe         [20] - SubBruteforcer   [36] - Patator          [50] - idb
+    [11] - XXEinjextor      [21] - Second-Order     [37] - Hydra          
+    """)
+    print("   [99] - Return to Main Menu \n")
+    choice4 = raw_input("   bughunter~# ")
+    if choice4 == "1":
+        clearScr()
+        xssradar()
+    if choice4 == "2":
+        clearScr()
+        xsshunter()
+    if choice4 == "3":
+        clearScr()
+        xsshunterclient()
+    if choice4 == "4":
+        clearScr()
+        domxss()
+    if choice4 == "5":
+        clearScr()
+        xsser()
+    if choice4 == "6":
+        clearScr()
+        brutexss()
+    if choice4 == "7":
+        clearScr()
+        xsstrike()
+    if choice4 == "8":
+        clearScr()
+        xssor()
+    if choice4 == "9":
+        clearScr()
+        sqlmap()
+    if choice4 == "10":
+        clearScr()
+        oxmlxxe()
+    if choice4 == "11":
+        clearScr()
+        xeeinj()
+    if choice4 == "12":
+        clearScr()
+        tplmap()
+    if choice4 == "13":
+        clearScr()
+        ssrfdetector()
+    if choice4 == "14":
+        clearScr()
+        groundcontrol()
+    if choice4 == "15":
+        clearScr()
+        lfisuit()
+    if choice4 == "16":
+        clearScr()
+        genxbinavi()
+    if choice4 == "17":
+        clearScr()
+            gittools()
+    if choice4 == "18":
+        clearScr()
+        dvcsripper()
+    if choice4 == "19":
+        clearScr()
+        tkosubs()
+    if choice4 == "20":
+        clearScr()
+        subbruteforcer()
+    if choice4 == "21":
+        clearScr()
+        secondorder()
+    if choice4 == "22":
+        clearScr()
+        racetheweb()
+    if choice4 == "23":
+        clearScr()
+        corstest()
+    if choice4 == "24":
+        clearScr()
+        rcestrutspwn()
+    if choice4 == "25":
+        clearScr()
+        ysoserial()
+    if choice4 == "26":
+        clearScr()
+        phpggc()
+    if choice4 == "27":
+        clearScr()
+        retirejs()
+    if choice4 == "28":
+        clearScr()
+        getsploit()
+    if choice4 == "29":
+        clearScr()
+        findsploit()
+    if choice4 == "30":
+        clearScr()
+        bfac()
+    if choice4 == "31":
+        clearScr()
+        wpscann()
+    if choice4 == "32":
+        clearScr()
+        cmsmap()
+    if choice4 == "33":
+        clearScr()
+        joomscan()
+    if choice4 == "34":
+        clearScr()
+        jsonwtt()
+    if choice4 == "35":
+        clearScr()
+        wfuzz()
+    if choice4 == "36":
+        clearScr()
+        patator()
+    if choice4 == "37":
+        clearScr()
+        hydra()
+    if choice4 == "38":
+        clearScr()
+        changeme()
+    if choice4 == "39":
+        clearScr()
+        wappalyzer()
+    if choice4 == "40":
+        clearScr()
+        builtwith()
+    if choice4 == "41":
+        clearScr()
+        wafwoof()
+    if choice4 == "42":
+        clearScr()
+        assetnote()
+    if choice4 == "43":
+        clearScr()
+        jsbeautifier()
+    if choice4 == "44":
+        clearScr()
+        linkfinder()
+    if choice4 == "45":
+        clearScr()
+        mobsf()
+    if choice4 == "46":
+        clearScr()
+        genymotion()
+    if choice4 == "47":
+        clearScr()
+        apktool()
+    if choice4 == "48":
+        clearScr()
+        dex2jar()
+    if choice4 == "49":
+        clearScr()
+        jdgui()
+    if choice4 == "50":
+        clearScr()
+        idb()
+    if choice4 == "99":
+        clearScr()
+        menu()
+    elif choice4 == "":
+        clearScr()
+        exploit()
+    else:
+        clearScr()
+        exploit()
+
+# Reporting ###################################################################
+
+def reporting():
+    clearScr()
+    print(bughunterlogo)
+    print("""
+    PoCs & Reporting | https://GitHub.com/vickybhai
+    ----------------------------------------------------------------
+        
+    [1] - Bug Bounty Platforms
+    [2] - POCs (Proof of Concepts)
+    [3] - CheatSheet
+    [4] - EyeWitness
+    [5] - HttpScreenshot
+    [6] - BugBountyTemplates
+    [7] - Template Generator
+    """)    
+    print("   [99] - Return to Main Menu \n")
+    choice5 = raw_input("   bughunter~# ")
+    if choice5 == "tips":
+     clearScr()
+     bugtips()
+    if choice5 == "1":
+        clearScr()
+        platforms()
+    if choice5 == "2":
+        clearScr()
+        pocs()
+    if choice5 == "3":
+        clearScr()
+        cheatsheet()
+    if choice5 == "4":
+     clearScr()
+     eyewitness()
+    if choice5 == "5":
+     clearScr()
+     httpscreenshot()
+    if choice5 == "6":
+     clearScr()
+     bbtemplates()
+    if choice5 == "7":
+     clearScr()
+     gentemplates()
+    elif choice5 == "99":
+        menu()
+    elif choice5 == "":
+        reporting()
+    else:
+        reporting()
+
+# SAGE ########################################################################
+
+def sage():
+    clearScr()
+    print(bughunterlogo)
+    print("""
+    Tools by vicky tools| https://GitHub.com/vickybhai/
+    ----------------------------------------------------------------
+    
+    [1] - Hacktronian - A Collection of Hacking Tools for Unix
+    [2] - Hackdroid - 250+ Penetration Testing Apps for Android
+    [3] - Hacknix - Hacking Tools For All Debian-based OS
+    [4] - Fluxion - WPA/WPA2 Cracker Using Evil Twin Attack
+    [5] - Ducky 4 Arduino - Ducky Script for Arduino Leonardo Mini
+    [6] - DoS and DDoS - Attack & Protection Tools
+    [7] - Kali-WSL - GUI Mode in Kali Linux Windows
+    [8] - HackPi - Portable Hacking Machine with RPi3
+    [9] - TorFi - Anonymous WiFi Hotspot
+    """)
+    print("   [99] - Return to Main Menu \n")
+    choicesage = raw_input("   bughunter~# ")
+    if choicesage == "1":
+        clearScr()
+        hacktronian()
+    if choicesage == "2":
+        clearScr()
+        hackdroid()
+    if choicesage == "3":
+        clearScr()
+        hacknix()
+    if choicesage == "4":
+     clearScr()
+     fluxion()
+    if choicesage == "5":
+     clearScr()
+     duckydino()
+    if choicesage == "6":
+     clearScr()
+     ddos()
+    if choicesage == "7":
+     clearScr()
+     kaliwsl()
+    if choicesage == "8":
+     clearScr()
+     hackpi()     
+    if choicesage == "9":
+     clearScr()
+     torfi()
+    elif choicesage == "99":
+        clearScr()
+        menu()
+    elif choicesage == "":
+        clearScr()
+        sage()
+    else:
+        clearScr()
+        sage()
+Update ######################################################################
+
+def updatebughunter():
+    os.system('clear')
+    print(bughunterlogo)
+    print ("""
+    Update Bughunter To Latest Version.. Current Version : 1.0
+    
+    Check Latest Version Here : https://github.com/thehackingsage/bughunter
+    """)
+    choiceupdate = raw_input(" Press Enter and Go Back To Main Menu : ")
+    if choiceupdate == "":
+        clearScr()
+        menu()
+    else:
+        clearScr()
+        menu()
+
+# About #######################################################################
+
+def about():
+    os.system('clear')
+    print(bughunterlogo)
+    print ("""
+---------------------------------------------------------------------
+    BugHunter v1.0 by Mr. SAGE. | https://thehackingsage.github.io   
+---------------------------------------------------------------------
+    Download Directory : 
+    
+    Normal User : /home/$USER/bughunter/
+    
+    Root User : /root/bughunter/
+   
+    ~/bughunter/info/ : Tools for Information Gathering
+    ~/bughunter/mapp/ : Tools for Mapping    
+    ~/bughunter/disc/ : Tools for Discovery
+    ~/bughunter/expt/ : Tools for Exploitation
+    ~/bughunter/rept/ : Tools for Reporting
+    ~/bughunter/sage/ : Tools by Mr. SAGE
+    Attention : View README.md File for Installation Instruction and How To Use Guide.
+---------------------------------------------------------------------
+    Follow Me : https://thehackingsage.github.io
+ 
+    Blog      :  https://thehacktronian.blogspot.com
+    Github    :  https://github.com/thehackingsage
+    YouTube   :  https://youtube.com/hacktronian
+    Twitter   :  https://twitter.com/thehackingsage
+    Instagram :  https://instagram.com/thehackingsage
+---------------------------------------------------------------------
+    [!] Thanks for Using This Tool :) 
+---------------------------------------------------------------------
+    """)
+    choiceabout = raw_input(" Press Enter and Go Back To Main Menu : ")
+    if choiceabout == "":
+        clearScr()
+        menu()
+    else:
+        clearScr()
+        menu()
+
+# My Info #####################################################################
+
+def myinfo():
+    os.system('clear')
+    print(bughunterlogo)
+    os.system("curl ipinfo.io")
+    choicemyinfo = raw_input("\n Press Enter and Go Back To Main Menu : ")
+    if choicemyinfo == "":
+        clearScr()
+        menu()
+    else:
+        clearScr()
+        menu()
+
+# SAGE ########################################################################
+
+def hacktronian():
+    os.system('clear')
+    print ("""
+    A Collection of Hacking Tools for Unix.
+    
+    Read More : https://github.com/thehackingsage/hacktronian
+    """)
+    choicehacktronian = raw_input(" Do You Want To Download Hacktronian? (Y/N) : ")
+    if choicehacktronian in yes:
+        os.system("cd ~/bughunter/sage/ && git clone https://github.com/thehackingsage/hacktronian.git")
+    elif choicehacktronian in no:
+      clearScr()
+      sage()
+    elif choicehacktronian == "":
+         clearScr()
+         sage()
+    else:
+         clearScr()
+         sage()
+
+def hackdroid():
+    os.system('clear')
+    print ("""
+    HackDroid is a collection of 250+ Penetration Testing and Ethical Hacking 
+    Apps for Android... in this, The Applications is divided into different 
+    categories so You can Download any App from any Category and Use it..
+    
+    Read More : https://github.com/thehackingsage/HackDroid
+    """)
+    choicehackdroid = raw_input(" Do You Want To Download Hackdroid? (Y/N) : ")
+    if choicehackdroid in yes:
+        os.system("firefox https://github.com/thehackingsage/HackDroid")
+    elif choicehackdroid in no:
+      clearScr()
+      sage()
+    elif choicehackdroid == "":
+         clearScr()
+elif choicehackdroid == "":
+         clearScr()
+         sage()
+    else:
+         clearScr()
+         sage()
+
+def hacknix():
+    os.system('clear')
+    print ("""
+    Hacknix is a script that installs all Kali Linux tools in your Debian-based 
+    operating system. All you need is Python 2.7 and the Git package installed 
+    in your system. Using this script, you can add and remove Kali Linux repositories..
+    
+    Read More : https://github.com/thehackingsage/hacknix
+    """)
+    choicehacknix = raw_input(" Do You Want To Download Hacknix? (Y/N) : ")
+    if choicehacknix in yes:
+        os.system("cd ~/bughunter/sage/ && git clone https://github.com/thehackingsage/hacknix.git")
+    elif choicehacknix in no:
+      clearScr()
+      sage()
+    elif choicehacknix == "":
+         clearScr()
+         sage()
+    else:
+         clearScr()
+         sage()    
+
+def fluxion():
+    os.system('clear')
+    print(""" 
+    Fluxion is a wifi key cracker using evil twin attack..
+    you need a wireless adoptor for this tool.
+    
+    Read More : https://github.com/thehackingsage/Fluxion
+    """)
+    choicefluxion = raw_input(" Do You Want To Download Fluxion? (Y/N) : ")
+    if choicefluxion in yes:
+        os.system("cd ~/bughunter/sage/ && git clone https://github.com/thehackingsage/Fluxion.git")
+    elif choicefluxion in no:
+         clearScr()
+         sage()
+    elif choicefluxion == "":
+         clearScr()
+         sage()
+    else:
+         clearScr()
+         sage()
+
+def duckydino():
+    os.system('clear')
+    print ("""
+    Ducky Script for Arduino Leonardo Mini & Arduino Uno + Payload to Arduino Converter
+    
+    Read More : https://github.com/thehackingsage/ducky4arduino
+    """)
+    choiceduckydino = raw_input(" Do You Want To Use DuckyDino? (Y/N) : ")
+    if choiceduckydino in yes:
+        os.system("firefox https://github.com/thehackingsage/ducky4arduino")
+    elif choiceduckydino in no:
+      clearScr()
+      sage()
+    elif choiceduckydino == "":
+         clearScr()
+         sage()
+    else:
+         clearScr()
+         sage()
+
+def ddos():
+    os.system('clear')
+    print ("""
+    DoS and DDoS Attack & Protection Tools for Windows, Linux & Android 
+    
+    !!! For Educational Purposes Only !!!
+    
+    Read More : https://github.com/thehackingsage/DDoS
+    """)
+    choiceddos = raw_input(" Do You Want To Download DoS & DDoS Tools? (Y/N) : ")
+    if choiceddos in yes:
+        os.system("cd ~/bughunter/sage/ && git clone https://github.com/thehackingsage/DDoS.git")
+    elif choiceddos in no:
+      clearScr()
+      sage()
+    elif choiceddos == "":
+         clearScr()
+         sage()
+    else:
+         clearScr()
+         sage()
+
+def kaliwsl():
+    os.system('clear')
+    print ("""
+    Tool for Kali Linux Windows App :    
+    Update, Upgrade, XFCE4 - GUI Mode & Hacking Tools..
+    
+    After Enabling WSL and Installing Kali Linux App 
+    from the Microsoft Store in Windows 10, Run This Script. 
+    
+    Read More : https://github.com/thehackingsage/Kali-WSL.git
+    """)
+    choicekaliwsl = raw_input(" Do You Want To Download Kali-WSL? (Y/N) : ")
+    if choicekaliwsl in yes:
+        os.system("cd ~/bughunter/sage/ && git clone https://github.com/thehackingsage/Kali-WSL.git")
+    elif choicekaliwsl in no:
+      clearScr()
+      sage()
+    elif choicekaliwsl == "":
+         clearScr()
+         sage()
+    else:
+         clearScr()
+         sage()
+
+def hackpi():
+    os.system('clear')
+    print ("""
+    Plug and Play Portable Hacking Machine with RPi3
+    
+    Update, Upgrade, AutoLogin, AutoVNC & Hacking Tools
+    
+    Read More : https://github.com/thehackingsage/HackPi
+    """)
+    choicehackpi = raw_input(" Do You Want To Download HackPi? (Y/N) : ")
+    if choicehackpi in yes:
+        os.system("cd ~/bughunter/sage/ && git clone https://github.com/thehackingsage/HackPi.git")
+    elif choicehackpi in no:
+      clearScr()
+      sage()
+    elif choicehackpi == "":
+         clearScr()
+         sage()
+    else:
+         clearScr()
+         sage()
+
+def torfi():
+    os.system('clear')
+    print ("""
+    Anonymous WiFi Hotspot Using Raspberry Pi 3
+    
+    Read More : https://github.com/thehackingsage/TorFi
+    """)
+    choicehackpi = raw_input(" Do You Want To Download TorFi? (Y/N) : ")
+    if choicehackpi in yes:
+        os.system("cd ~/bughunter/sage/ && git clone https://github.com/thehackingsage/torFi.git")
+    elif choicehackpi in no:
+      clearScr()
+      sage()
+    elif choicehackpi == "":
+         clearScr()
+         sage()
+    else:
+         clearScr()
+         sage()
+
+# Information Gathering #######################################################
+
+def basiccmd():
+    os.system('clear')
+    print ("""
+    use the following steps to validate ownership of a target :
+    Ping the target domains/hosts :
+    ping google.com 
+    ping 8.8.8.8
+    
+    Whois the target domains/hosts/ip :
+    whois example.com
+    whois 104.27.178.12
+    
+    Resolve the IP addresses for the target domains/hosts :
+    dig +short example.com
+    
+    Results could be mixed depending on whether or not the target 
+    is using whois privacy protection.
+    """)
+    choicebasiccmd = raw_input(" Press Enter and Go Back To Information Gathering Menu : ")
+    if choicebasiccmd == "":
+         clearScr()
+         info()
+    else:
+        clearScr()
+        info()
+    
+def masscan():
+    os.system('clear')
+    print ("""
+    Mass IP port scanner. ... It can scan the entire Internet in under 6 minutes, 
+    transmitting 10 million packets per second.
+    """)
+    choicemasscan = raw_input(" Do You Want To Download MASSCAN? (Y/N) : ")
+    if choicemasscan in yes:
+        os.system("cd ~/bughunter/info/ && git clone https://github.com/robertdavidgraham/masscan.git")
+    elif choicemasscan in no:
+      clearScr()
+      info()
+    elif choicemasscan == "":
+         clearScr()
+         info()
+    else:
+       clearScr()
+         info()
+         
+def dnsrecon():
+    os.system('clear')
+    print ("""
+    DNSRecon is a Python port of a Ruby script that I wrote to learn the language 
+    and about DNS in early 2007. This time I wanted to learn about Python and extend 
+    the functionality of the original tool and in the process re-learn how DNS works 
+    and how could it be used in the process of a security assessment and network troubleshooting.
+    """)
+    choicednsrecon = raw_input(" Do You Want To Download DNS-Recon? (Y/N) : ")
+    if choicednsrecon in yes:
+        os.system("cd ~/bughunter/info/ && git clone https://github.com/darkoperator/dnsrecon.git")
+    elif choicednsrecon in no:
+      clearScr()
+      info()
+    elif choicednsrecon == "":
+         clearScr()
+         info()
+    else:
+         clearScr()           
+         info()
+            
+def sublister():
+    os.system('clear')
+    print ("""
+    Sublist3r is a python tool designed to enumerate subdomains of websites using OSINT.
+    It helps penetration testers and bug hunters collect and gather subdomains for the 
+    domain they are targeting. Sublist3r enumerates subdomains using many search engines 
+    such as Google, Yahoo, Bing, Baidu, and Ask. Sublist3r also enumerates subdomains 
+    using Netcraft, Virustotal, ThreatCrowd, DNSdumpster, and ReverseDNS.
+    """)
+    choicesublister = raw_input(" Do You Want To Download SubList3r? (Y/N) : ")
+    if choicesublister in yes:
+        os.system("cd ~/bughunter/info/ && git clone https://github.com/aboul3la/Sublist3r.git")
+    elif choicesublister in no:
+      clearScr()
+      info()
+    elif choicesublister == "":
+         clearScr()
+         info()
+    else:
+         clearScr()
+         info()
+
+def altdns():
+    os.system('clear')
+    print ("""
+    Altdns is a DNS recon tool that allows for the discovery of subdomains that conform to patterns.
+    Altdns takes in words that could be present in subdomains under a domain (such as test, dev, 
+    staging) as well as takes in a list of subdomains that you know of..
+    From these two lists that are provided as input to altdns, the tool then generates a massive 
+    output of "altered" or "mutated" potential subdomains that could be present. It saves this output 
+    so that it can then be used by your favourite DNS bruteforcing tool.
+    Alternatively, the -r flag can be passed to altdns so that once this output is generated, 
+    the tool can then resolve these subdomains (multi-threaded) and save the results to a file.
+    Altdns works best with large datasets. Having an initial dataset of 200 or more subdomains should 
+    churn out some valid subdomains via the alterations generated.
+    """)
+    choicealtdns = raw_input(" Do You Want To Download Altdns? (Y/N) : ")
+    if choicealtdns in yes:
+        os.system("cd ~/bughunter/info/ && git clone https://github.com/infosec-au/altdns.git")
+    elif choicealtdns in no:
+      clearScr()
+      info()
+    elif choicealtdns == "":
+         clearScr()
+         info()
+    else:
+         clearScr()
+         info()
+
+def amass():
+    os.system('clear')
+    print ("""
+    Amass is a tool for In-Depth DNS Enumeration and Network Mapping..
+    """)
+    choiceamass = raw_input(" Do You Want To Download Amass? (Y/N) : ")
+    if choiceamass in yes:
+        os.system("cd ~/bughunter/info/ && git clone https://github.com/caffix/amass.git")
+    elif choiceamass in no:
+      clearScr()
+      info()
+    elif choiceamass == "":
+         clearScr()
+         info()
+    else:
+         clearScr()
+         info()
+
+def subfinder():
+    os.system('clear')
+    print ("""
+    SubFinder is a subdomain discovery tool that discovers valid subdomains for websites. 
+    Designed as a passive framework to be useful for bug bounties and safe for penetration testing.
+    """)
+    choicesubfinder = raw_input(" Do You Want To Download Subfinder? (Y/N) : ")
+    if choicesubfinder in yes:
+        os.system("cd ~/bughunter/info/ && git clone https://github.com/subfinder/subfinder.git")
+    elif choicesubfinder in no:
+      clearScr()
+      info()
+    elif choicesubfinder == "":
+         clearScr()
+         info()
+    else:
+         clearScr()
+         info()
+
+def enumall():
+    os.system('clear')
+         clearScr()
